@@ -1,9 +1,20 @@
 import { type NextPage } from "next";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Home: NextPage = () => {
+  const session = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      router.push("/game");
+    }
+  }, [session]);
+
   return (
     <>
       <Head>
@@ -13,7 +24,7 @@ const Home: NextPage = () => {
       </Head>
       <img src="/among-us-wallpaper-1.webp" className="h-full object-cover" />
       <button
-        className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] rounded-xl bg-red-500 py-10 px-20 text-2xl font-bold text-white shadow-2xl"
+        className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] rounded-xl bg-white py-10 px-20 text-2xl font-bold text-black shadow-2xl"
         onClick={() => {
           signIn();
         }}
@@ -25,11 +36,5 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-type TechnologyCardProps = {
-  name: string;
-  description: string;
-  documentation: string;
-};
 
 // export getServerSideProps() {}
