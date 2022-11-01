@@ -13,5 +13,14 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+
+  async rewrites() {
+    return [
+      {
+        source: "/game",
+        destination: "https://shimmering-pothos-f9a120.netlify.app/",
+      },
+    ];
+  },
 };
 export default config;
